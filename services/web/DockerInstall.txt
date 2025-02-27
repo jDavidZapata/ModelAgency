@@ -42,8 +42,9 @@ sudo reboot
 docker run hello-world  
 
 # 5. Clone the repository from GitHub:
-git clone https://github.com/your-username/project.git
-cd project/
+git clone https://github.com/jDavidZapata/ModelAgency.git 
+cd ModelAgency/
+
 
 # 6. Create a .env file and add the following variables:
 export DB_HOST=your-db-hostname

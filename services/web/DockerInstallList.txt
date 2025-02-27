@@ -22,8 +22,8 @@ sudo reboot
 
 #pull the code from github
 
-git clone [your-github-repository-url]
-cd [your-repository-name]
+git clone https://github.com/jDavidZapata/ModelAgency.git
+cd ModelAgency
 
 
 #run code
