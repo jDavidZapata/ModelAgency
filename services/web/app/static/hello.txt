@@ -1,0 +1,18 @@
+Hi there this is a static file!
+
+"name": model.name,
+            "image": model.image,
+            "description": model.description,
+            "instagram": model.instagram,
+            "height": model.height,
+            "agency": model.agency,
+            "specialization": model.specialization,
+            "location": model.location,
+            "experience": model.experience,
+            "highlights": model.highlights,
+            "notable_work": model.notable_work,
+            "weight": model.weight,
+            "measurements": model.measurements,
+            "hair_color": model.hair_color,
+            "eye_color": model.eye_color,
+            "media_links": model.media_links

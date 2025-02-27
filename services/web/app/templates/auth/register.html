@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block content %}
+    <h1>{{ _('Register') }}</h1>
+    {{ wtf.quick_form(form) }}
+    <h3>Or</h3>
+    <p>
+    <a href="{{ url_for('auth.google_login') }}" class="btn btn-success">Sign in with Google</a>
+    </p>
+{% endblock %}

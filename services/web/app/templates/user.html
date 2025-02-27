@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile">
+    <div class="avatar">
+        <img src="{{ user.avatar(256) }}" alt="User Avatar">
+    </div>
+    <div class="description">
+        <h1><span class="badge bg-danger rounded">{{ _(user.username) }}</span></h1>
+        
+        <div class="card text-white bg-dark">
+            {% if user.about_me %}
+            <div class="card-header"><h3 class="card-text ">{{ _(user.about_me) }}</h3></div>
+            {% endif %}
+            <div class="card-body">
+        
+                {% if user.last_seen %}
+                    <p>{{ _('Last seen on') }}: {{ moment(user.last_seen).format('LLL') }}</p>
+                {% endif %}
+                <p>{{ _('%(count)d followers', count=user.followers_count()) }}, {{ _('%(count)d following', count=user.following_count()) }}</p>
+        
+            </div>
+          </div>
+        
+        {% if user == current_user %}
+            <form action="{{ url_for('main.edit_profile') }}" method="get">
+                {{ form.hidden_tag() }}
+                {{ form.submit(value=_('Edit Your Profile'), class_='btn btn-secondary') }}
+            </form>
+    
+        {% elif not current_user.is_following(user) %}
+            <p>
+                <form action="{{ url_for('main.follow', username=user.username) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(value=_('Follow'), class_='btn btn-primary') }}
+                </form>
+            </p>
+        {% else %}
+            <p>
+                <form action="{{ url_for('main.unfollow', username=user.username) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(value=_('Unfollow'), class_='btn btn-primary') }}
+                </form>
+            </p>
+        {% endif %}
+        
+        {% if user != current_user %}
+            <p>
+                <form action="{{ url_for('main.send_message', recipient=user.username) }}" method="get">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(value=_('Send Private Message'), class_='btn btn-secondary') }}
+                </form>
+            </p>
+            <br>
+        {% endif %}
+    </div>
+</div>
+    <h1> Posts </h1>
+    {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
+    <nav aria-label="Post navigation">
+        <ul class="pagination">
+            <li class="page-item{% if not prev_url %} disabled{% endif %}">
+                <a class="page-link" href="{{ prev_url }}">
+                    <span aria-hidden="true">&larr;</span> {{ _('Newer posts') }}
+                </a>
+            </li>
+            <li class="page-item{% if not next_url %} disabled{% endif %}">
+                <a class="page-link" href="{{ next_url }}">
+                    {{ _('Older posts') }} <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

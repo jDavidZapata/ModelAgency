@@ -1,0 +1,51 @@
+services:
+  web:
+    build:
+      context: ./services/web
+      dockerfile: Dockerfile.dev  # Use a development Dockerfile if you have one
+    command: gunicorn --bind 0.0.0.0:5000 --reload manage:app # Add --reload for auto-reloading
+    volumes:
+      - ./services/web/app/static:/home/app/web/app/static # Mount directly for live updates
+      - ./services/web/app/media:/home/app/web/app/media # Mount directly for live updates
+      - ./services/web/app/upload:/home/app/web/app/upload # Mount directly for live updates
+    ports:
+      - "5000" # Expose port for local access
+    env_file:
+      - ./.env.prod  # Use a development environment file but using the production environment
+    depends_on:
+      - db
+    environment:
+      - PYTHONUNBUFFERED=1 # Helpful for debugging
+
+  db:
+    image: postgres
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data/ # Separate volume for development
+    env_file:
+      - ./.env.prod.db  # Use a development database environment file but using the production database
+    ports:
+      - "5432:5432" # Expose port for local access tools
+
+  nginx:
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./services/web/app/static:/home/app/web/app/static # Mount directly for live updates
+      - ./services/web/app/media:/home/app/web/app/media # Mount directly for live updates
+      - ./services/web/app/upload:/home/app/web/app/upload # Mount directly for live updates
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"  # Expose Redis for local access
+
+volumes:
+  postgres_data_dev: # Development database volume
+  # static_volume:  Remove named volumes for dev (direct mounts used)
+  # media_volume:   Remove named volumes for dev (direct mounts used)
+  # upload_volume:  Remove named volumes for dev (direct mounts used)

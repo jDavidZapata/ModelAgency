@@ -1,0 +1,163 @@
+{% import "nav.html" as nav %}
+{% import "greeting2.html" as greeting2 %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if title %}
+    <title>{{ title }} - Model Mafia</title>
+    {% else %}
+    <title>{{ _("Welcome to Model Mafia") }}</title>
+    {% endif %}
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/stylesheet.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
+
+  </head>
+  <body>
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+
+    {% block nav %}
+    {{ nav.nav(current_user) }}
+    {% endblock %}
+    {% block greeting2 %}
+    {{ greeting2.greeting(current_user) }}
+    {% endblock %}
+
+    <div class="container mt-3">
+      {% if current_user.is_authenticated %}
+      {% with tasks = current_user.get_tasks_in_progress() %}
+      {% if tasks %}
+        {% for task in tasks %}
+        <div class="alert alert-success" role="alert">
+          {{ task.description }}
+          <span id="{{ task.id }}-progress">{{ task.get_progress() }}</span>%
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+      {% endif %}
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
+    <footer id="contact-sec" class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved   
+     | JDZ</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous">
+    </script>
+    {{ moment.include_moment() }}
+    {{ moment.lang(g.locale) }}
+    <script>
+      async function translate(sourceElem, destElem, sourceLang, destLang) {
+        document.getElementById(destElem).innerHTML = 
+          '<img src="{{ url_for('static', filename='loading.gif') }}">';
+        const response = await fetch('/translate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json; charset=utf-8'},
+          body: JSON.stringify({
+            text: document.getElementById(sourceElem).innerText,
+            source_language: sourceLang,
+            dest_language: destLang
+          })
+        })
+        const data = await response.json();
+        document.getElementById(destElem).innerText = data.text;
+      }
+
+      function initialize_popovers() {
+        const popups = document.getElementsByClassName('user_popup');
+        for (let i = 0; i < popups.length; i++) {
+          const popover = new bootstrap.Popover(popups[i], {
+            content: 'Loading...',
+            trigger: 'hover focus',
+            placement: 'right',
+            html: true,
+            sanitize: false,
+            delay: {show: 500, hide: 0},
+            container: popups[i],
+            customClass: 'd-inline',
+          });
+          popups[i].addEventListener('show.bs.popover', async (ev) => {
+            if (ev.target.popupLoaded) {
+              return;
+            }
+            const response = await fetch('/user/' + ev.target.innerText.trim() + '/popup');
+            const data = await response.text();
+            const popover = bootstrap.Popover.getInstance(ev.target);
+            if (popover && data) {
+              ev.target.popupLoaded = true;
+              popover.setContent({'.popover-body': data});
+              flask_moment_render_all();
+            }
+          });
+        }
+      }
+      document.addEventListener('DOMContentLoaded', initialize_popovers);
+
+      function set_message_count(n) {
+        const count = document.getElementById('message_count');
+        count.innerText = n;
+        count.style.visibility = n ? 'visible' : 'hidden';
+      }
+
+      function set_task_progress(task_id, progress) {
+        const progressElement = document.getElementById(task_id + '-progress');
+        if (progressElement) {
+          progressElement.innerText = progress;
+        }
+      }
+
+      {% if current_user.is_authenticated %}
+      function initialize_notifications() {
+        let since = 0;
+        setInterval(async function() {
+          const response = await fetch('{{ url_for('main.notifications') }}?since=' + since);
+          const notifications = await response.json();
+          for (let i = 0; i < notifications.length; i++) {
+            switch (notifications[i].name) {
+              case 'unread_message_count':
+                set_message_count(notifications[i].data);
+                break;
+              case 'task_progress':
+                set_task_progress(notifications[i].data.task_id,
+                    notifications[i].data.progress);
+                break;
+            }
+            since = notifications[i].timestamp;
+          }
+        }, 10000);
+      }
+      document.addEventListener('DOMContentLoaded', initialize_notifications);
+      {% endif %}
+    </script>
+  </body>
+</html>

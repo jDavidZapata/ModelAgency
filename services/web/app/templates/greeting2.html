@@ -1,0 +1,16 @@
+{% macro greeting(current_user) %}
+{% if current_user.is_authenticated %}
+<div class="section text-end">
+    <h1><span class="badge bg-primary rounded">{{ _('%(username)s', username=current_user.username) }}</span></h1>
+</div>
+{% endif %}
+
+{% if current_user.is_anonymous %}
+<div class="section text-end">
+    <!-- Show Login with Google link if the user is not authenticated -->
+    <a class="navbar-brand" aria-current="page" href="{{ url_for('auth.google_login') }}">
+      <span id="message_count" class="badge text-bg-primary">Sign in with Google</span>
+    </a>
+</div>        
+{% endif %}
+{% endmacro %}

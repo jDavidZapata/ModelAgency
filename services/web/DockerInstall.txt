@@ -1,0 +1,62 @@
+# 1. Set up Docker's apt repository.
+# Add Docker's official GPG key:
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# 2. Install the Docker packages.
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 3. Verify that the Docker Engine installation is successful by running the hello-world image.
+
+sudo docker run hello-world
+
+sudo usermod -aG docker ${USER}
+
+# Them restart or log out
+
+su - ${USER}
+
+groups
+
+# Adding a new user 
+
+sudo usermod -aG docker username
+
+sudo reboot
+
+# 4. Verify that you can use Docker commands without sudo.
+
+docker run hello-world  
+
+# 5. Clone the repository from GitHub:
+git clone https://github.com/your-username/project.git
+cd project/
+
+# 6. Create a .env file and add the following variables:
+export DB_HOST=your-db-hostname
+export DB_PORT=3306
+export DB_USER=your-db-username
+export DB_PASSWORD=your-db-password
+export DB_DATABASE=your-db-database
+
+# 7. Build the Docker image for the development environment:
+docker-compose -f docker-compose.dev.yml up -d --build
+
+#8. stop the dev container
+docker-compose -f docker-compose.dev.yml down -v
+
+# 9. Run the Docker container in production mode:   
+docker-compose -f docker-compose.prod.yml up -d --build

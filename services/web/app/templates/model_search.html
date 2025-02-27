@@ -1,0 +1,38 @@
+{% macro model_search(current_user) %}
+
+<div class="container-fluid content">
+    <div class="row">
+
+      <div class="col-12 col-lg-4 col-sm-6 col-md-4 bg-danger right">
+
+        <form class="form-inline justify-content-center" action="{{ url_for('main.search') }}" method="POST">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="model_name" class="sr-only">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Model Name"
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Search By ... Name</button>
+        </form>
+
+        <form class="form-inline justify-content-center" action="{{ url_for('main.search') }}" method="POST">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="model_location" class="sr-only">Location</label>
+            <input type="text" name="location" class="form-control" id="location" placeholder="Enter Model Location"
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Search By ... Location</button>
+        </form>
+
+        <form class="form-inline justify-content-center" action="{{ url_for('main.search') }}" method="POST">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="model_height" class="sr-only">Height</label>
+            <input type="text" name="height" class="form-control" id="height" placeholder="Enter Model Height"
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Search By ... Height </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+{% endmacro %}

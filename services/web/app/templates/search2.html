@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Model Search{% endblock %}
+{% block content %}
+
+<div class="container">
+
+    <h1>Search Models</h1>
+    <div class="left">
+    
+    {% if models %}
+        <h2>Search Results</h2>
+        <ul>
+            {% for model in models %}
+            <div>
+                <li>
+                    <img src="{{ url_for('static', filename=model.image) }}" alt="{{ model.name }}" width="200">
+                    <h2><a href="/model/{{ model.name }}">{{ model.name }}</a></h2>
+                    <p>Description: {{ model.description }}</p>
+                    <p>Location: {{ model.location }}</p>
+                     <p>Specialization: {{ model.specialization }}</p>
+                      <p>Hair Color: {{ model.hair_color }}</p>
+                      <p>Eye Color: {{ model.eye_color }}</p>
+                      <p>Height: {{ model.height }}</p>
+                      <p>Weight: {{ model.weight }}</p>
+                      <p>Agency: {{ model.agency }}</p>
+                    <!-- Display other relevant model information -->
+                </li>
+            </div>    
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+
+    <div class="right">
+
+        <h1>Search By Filter</h1>
+    </div>
+
+    <form action="{{ url_for('main.search') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"><br><br>
+
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location"><br><br>
+
+        <label for="hair_color">Hair Color:</label>
+        <input type="text" name="hair_color" id="hair_color"><br><br>
+
+        <label for="eye_color">Eye Color:</label>
+        <input type="text" name="eye_color" id="eye_color"><br><br>
+
+        <label for="height">Height:</label>
+        <input type="text" name="height" id="height"><br><br>
+
+        <label for="weight">Weight:</label>
+        <input type="text" name="weight" id="weight"><br><br>
+
+        <button type="submit">Search</button>
+    </form>
+
+    </div>
+</div>
+    {% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+{% import "model_search.html" as model_search %}
+
+{% block title %}Model Directory{% endblock %}
+
+{% block header %}
+<h1>Model</h1>
+<h2>Mafia</h2>
+{% endblock %}
+
+{% block content %}
+<div class="section">
+
+<h1>Fashion Model Directory</h1>
+<div class="left">
+    {% for error in errors %}
+    <h4>{{ error }}</h4>
+    {% endfor %}
+
+    <div class="modelindex">
+
+        <ul>
+            {% for model in models %}
+            <li>
+                <img src="{{ url_for('static', filename=model['image']) }}" alt="{{ model['name'] }}" width="200">
+                <h2><a href="/model/{{ model['name'] }}">{{ model['name'] }}</a></h2>
+                <p>{{ model['description'] }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>API Endpoint:</h2>
+        <p>Access model data in JSON format: <a href="/api/models">/api/models</a></p>
+
+    </div>
+
+
+</div>
+
+<div class="right">
+    {% block model_search %}
+    {{ model_search.model_search() }}
+    {% endblock %}
+
+</div>  
+{% endblock %}

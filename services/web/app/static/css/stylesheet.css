@@ -1,0 +1,217 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: rgb(255, 255, 255);
+    
+}
+
+body {
+    font-family: 'Montserrat', Tahoma, 'Courier New', 'Brush Script MT', Verdana, Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 255, 255);
+}
+
+/* Style the header */
+header {
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+/* Clear floats after the columns */
+.section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Create two columns/boxes that floats next to each other */
+.right {
+    float: left;
+    width: 55%;
+    /*height: 100vh;*/
+    height: 100%; /* only for demonstration, should be removed */
+    background-color: #ccc;
+    padding: 5px;
+    text-align: center;
+    color: red;
+}
+
+
+.left {
+    float: left;
+    padding: 5px;
+    width: 45%;
+    background-color: #f1f1f1;
+    /*height: 100vh;*/
+    height: 100%; /* only for demonstration, should be removed */
+    text-align: center;
+    align-content: center;
+    color: red;
+}
+
+td.vote {
+    color: red;
+    font-weight: bold;
+}
+
+/* Style the footer 
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}*/
+
+.ftco-section {
+	padding: 7em 0;
+}
+
+.ftco-bg-dark {
+	background: #ff0000;
+}
+/*
+.ftco-animate {
+    opacity: 0;
+    visibility: hidden; }
+*/
+
+.ftco-footer {
+    font-size: 16px;
+    background: #121212;
+    padding: 8em 0; }
+    .ftco-footer .ftco-footer-logo {
+      text-transform: uppercase;
+      letter-spacing: .1em; }
+    .ftco-footer .ftco-footer-widget h2, .ftco-footer .ftco-footer-widget h4 {
+      font-weight: normal;
+      color: rgb(255, 255, 255); }
+    .ftco-footer .ftco-footer-widget .email a {
+      color: #ff0000;
+      font-size: 20px; }
+    .ftco-footer .ftco-footer-widget h2 {
+      font-weight: 700; }
+    .ftco-footer p {
+      color: rgba(255, 255, 255, 0.5); }
+    .ftco-footer a {
+      color: rgba(255, 255, 255, 0.687);
+      font-size: 30px; }
+      .ftco-footer a:hover {
+        color: #fff; }
+    .ftco-footer .ftco-heading {
+      font-size: 24px; }
+    .ftco-footer .ftco-heading-2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #121212; }
+  
+  .ftco-footer-social li {
+    list-style: none;
+    margin: 0 10px 10px 0;
+    display: inline-block; }
+    .ftco-footer-social li a {
+      height: 60px;
+      width: 60px;
+      display: block;
+      float: left;
+      background: rgba(255, 0, 0, 0.868);
+      border-radius: 50%;
+      position: relative; }
+      .ftco-footer-social li a span {
+        position: absolute;
+        font-size: 26px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+      .ftco-footer-social li a:hover {
+        color: rgb(55, 97, 251); }
+
+
+/* Default layout for larger screens */
+.user-table {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+    nav, article, .right, .left, .table>tbody>tr>td.avatar, .table>tbody>tr>td.description{
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+.error {
+    border: 2px solid black;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    color: red;
+}
+
+
+.flash {
+    color:red;
+
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    text-align: center;
+}
+
+
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formleft {
+    align-content: center;
+    display: inline-flex;
+}
+
+   /* Basic styling for the dropdown and button */
+   .booking-container {
+    margin: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  select {
+    width: 200px; /* Adjust as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  #book-now {
+    background-color: #ff0080; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  #book-now:hover {
+    background-color: #cc00ff;
+  }

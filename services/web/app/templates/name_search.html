@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Name Search{% endblock %}
+
+{% block header %}
+<h1>Heather's</h1>
+<h2>Baby Name Suggestions</h2>
+<h1>It's A Boy</h1>
+{% endblock %}
+
+{% block content %}
+<div class="section">
+
+    <div class="left">
+
+        <h2>Search Results</h2>
+        <br>
+        <div id="names">
+            <table class="table table-striped center" style="max-width: 300px;">
+                <thead>
+                    <tr>
+                        <th>Web Site</th>
+                        <th></th>
+                        <th>Link To Name</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><a href="https://en.wikipedia.org"> Wikipedia </a></td>
+                    <td>>-----></td>
+                    <td><a href="https://en.wikipedia.org/wiki/{{ name }}">{{ name }}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="http://www.babynamewizard.com"> Baby Name Wizard </a></td>
+                    <td>>-----></td>
+                    <td><a href="http://www.babynamewizard.com/baby-name/girl/{{ name}}">{{ name }}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.behindthename.com/"> Behind The Name </a></td>
+                    <td>>-----></td>
+                    <td><a href="https://www.behindthename.com/name/{{ name }}">{{ name }}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.babynames.com"> Baby Names </a></td>
+                    <td>>-----></td>
+                    <td><a href="https://www.babynames.com/name/{{ name }}">{{ name }}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.urbandictionary.com"> Urban Dictionary </a></td>
+                    <td>>-----></td>
+                    <td><a href="https://www.urbandictionary.com/define.php?term={{ name }}">{{ name }}</a></td>
+                </tr>
+
+            </table>
+        </div>
+        
+
+    </div>
+
+    <div class="right">
+        {% if current_user.is_anonymous %}
+        {% for error in errors %}
+        <h4>{{ error }}</h4>
+        {% endfor %}
+        <br>
+        <br>
+        <form role="form" method="GET" action="/auth/login">
+            <button type="search" class="btn btn-success">LOGIN</button>
+        </form>
+        <br>
+        <br>
+        <form role="form" method="GET" action="/auth/register">
+            <button type="search" class="btn btn-warning">Sign Up</button>
+        </form>
+        <br>
+        <br>
+        <form role="form" method="GET" action="/auth.google_login">
+            <a href="{{ url_for('auth.google_login') }}" class="btn btn-primary">Sign in with Google</a>
+        </form>
+        <br>
+        {% else %}
+        <br>
+        <form role="form" method="POST" action="/">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" id="url-box" placeholder="Enter Suggestion..."
+                    style="max-width: 300px;" required>
+            </div>
+            <button type="search" class="btn btn-danger">Submit</button>
+        </form>
+        <br>
+        <h3>Enter A Name To Find The Meaning</h3>
+        <br>
+        <form role="form" method='POST' action="/name_search">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" id="url-box" placeholder="Search For Name..." style="max-width: 300px;"
+                    required>
+            </div>
+            <button type="search" class="btn btn-secondary">Search</button>
+        </form>
+        <br>
+
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

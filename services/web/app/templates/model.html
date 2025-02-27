@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Details</title>
+</head>
+<body>
+    <h1>Model Details</h1>
+    <h2>{{ model.name }}</h2>
+    <img src="{{ model.image_url }}" alt="{{ model.name }}" width="200">
+    <p>$250.00</p>
+
+    <div class="booking-container">
+        <label for="booking-hours">Booking Hours:</label>
+        <select id="booking-hours" name="booking-hours">
+          <option value="2">2hrs - $250</option>
+          <option value="4">4hrs - $500</option>
+          <option value="6">6hrs - $750</option>
+          <option value="8">8hrs - $1000</option>
+          <option value="10">10hrs - $1250</option>
+          <option value="12">12hrs - $1500</option>
+          <!-- Add more options as needed -->
+        </select>
+    
+        <button id="book-now">BOOK NOW</button>
+      </div>
+    <!-- Add other details as needed -->
+
+    <p>{{ model.description }}</p>
+    <p>Instagram: <a href="https://instagram.com/{{ model.instagram }}">{{ model.instagram }}</a></p>
+
+    <h3>Stats</h3>
+    <ul>
+        <li>Height: {{ model.height }}</li>
+        <li>Agency: {{ model.agency }}</li>
+        <li>Specialization: {{ model.specialization }}</li>
+        <li>Location: {{ model.location }}</li>
+        <li>Experience: {{ model.experience }}</li>
+        <li>Highlights: {{ model.highlights }}</li>
+        <li>Notable Work: {{ model.notable_work }}</li>
+        <li>Weight: {{ model.weight }}</li>
+        <li>Measurements: {{ model.measurements }}</li>
+        <li>Hair Color: {{ model.hair_color }}</li>
+        <li>Eye Color: {{ model.eye_color }}</li>
+        <li>Media Links: {{ model.media_links }}</li>
+    </ul>
+    <a href="/">Back to Directory</a>
+</body>
+</html>

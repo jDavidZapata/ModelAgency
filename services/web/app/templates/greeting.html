@@ -1,0 +1,7 @@
+{% macro greeting(current_user) %}
+{% if current_user.is_authenticated %}
+<div class="section text-end">
+    <h1><span class="badge bg-primary rounded">{{ _('%(username)s', username=current_user.username) }}</span></h1>
+</div>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,46 @@
+#Install Docker
+
+sudo apt update
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+docker run hello-world
+
+sudo usermod -aG docker $USER
+newgrp docker  # Apply the changes to your current session
+
+sudo reboot
+
+
+#pull the code from github
+
+git clone [your-github-repository-url]
+cd [your-repository-name]
+
+
+#run code
+docker build -t my-flask-app .
+docker run -d -p 80:5000 my-flask-app
+
+
+#run the container with the following command:
+#docker run --name my-container -p 80:80 -d [image-name]
+#open your web browser and navigate to http://localhost or the IP address of your server. You should see the output from the "Hello, World!" program running inside the Docker container.
+
+
+#with docker-compose
+#docker-compose up -d
+
+#development environment
+docker-compose -f docker-compose.dev.yml up -d --build
+
+#production environment
+docker-compose -f docker-compose.prod.yml up -d --build

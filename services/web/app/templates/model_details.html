@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}{{ model.name }} - Detail{% endblock %}
+
+{% block header %}
+<h1>Model Detail</h1>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h2>{{ model.name }}</h2>
+    <img src="{{ model.image_url }}" alt="{{ model.name }}">
+    <p>kristof Model Test</p>
+
+    <p>$250.00</p>
+
+    <div class="booking-container">
+        <label for="booking-hours">Booking Hours:</label>
+        <select id="booking-hours" name="booking-hours">
+          <option value="2">2hrs - $250</option>
+          <option value="4">4hrs - $500</option>
+          <option value="6">6hrs - $750</option>
+          <option value="8">8hrs - $1000</option>
+          <option value="10">10hrs - $1250</option>
+          <option value="12">12hrs - $1500</option>
+          <!-- Add more options as needed -->
+        </select>
+    
+        <button id="book-now">BOOK NOW</button>
+      </div>
+    <!-- Add other details as needed -->
+
+    <p>{{model.name}} is a Professional Based in {{model.location}}</p>
+
+    <h3>Introduction:</h3>
+    <p>Meet {{ model.name }}, an inspiring and dynamic {{ model.specialization }} who’s making waves in the fashion and entertainment industry. Based in {{ model.location }}, {{ model.name }} has a passion for creativity and an exceptional ability to bring any concept to life.</p>
+
+    <p>With experience working across {{ model.experience }}, {{ model.name }} is available for runway shows, editorial campaigns, brand collaborations, and more.</p>
+
+    <h3>Portfolio Highlights:</h3>
+    <p>Specialization: {{ model.specialization }}</p>
+
+    <p>Experience: {{ model.experience }}</p>
+
+    <p>Achievements: {{ model.highlights }} (e.g., walked for [brand], featured in [magazine], completed campaigns with [company])</p>
+
+    <p>Notable Work: {{ model.notable_work }} (List of major collaborations, publications, or key experiences from the form)</p>
+
+    <h3>Measurements & Physical Details:</h3>
+    <p>Height: {{ model.height }}</p>
+
+    <p>Weight: {{ model.weight }}</p>
+
+    <p>Bust/Waist/Hips: {{ model.measurements }}</p>
+
+    <p>Hair Color: {{ model.hair_color }}</p>
+
+    <p>Eye Color: {{ model.eye_color }}</p>
+
+    <p>These details ensure perfect casting for any project, from fashion editorials to high-end runway events.</p>
+
+    <h3>Booking Availability:</h3>
+    <p>Ready to elevate your next project? {{ model.name }} is available for bookings in {{ model.location }} and beyond.</p>
+
+    <h4>Key Availability:</h4>
+
+    <p>Flexible travel options with notice</p>
+
+    <p>Open to collaborations across major events such as runway shows, photoshoots, and brand activations</p>
+
+    <p>Please check the current availability calendar for booking specifics.</p>
+
+    <h3>Media & Press Coverage:</h3>
+    <p>Instagram: <a href="https://instagram.com/{{ model.instagram }}">{{ model.instagram }}</a></p>
+    <p>{{ model.media_links }} (Provide media links if available or include notable articles/publications.)</p>
+
+    <a href="/">Back to Directory</a>
+</div>
+{% endblock %}
